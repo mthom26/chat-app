@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
+import { StyleSheet, css } from 'aphrodite';
 import NavMenu from './NavMenu';
 import ChatWindow from './ChatWindow';
 import OnlineUsers from './OnlineUsers';
 
-const appStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between'
-};
-
-const styles = {
-  display: 'flex',
-  border: '2px solid red',
-  justifyContent: 'space-between'
-};
-
 class App extends Component {
   render() {
     return (
-      <div style={appStyles}>
+      <div classname={css(styles.app)}>
         <NavMenu />
-        <div style={styles}>
+        <div className={css(styles.main)}>
           <ChatWindow />
           <OnlineUsers />
         </div>
@@ -28,5 +17,18 @@ class App extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  app: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  main: {
+    display: 'flex',
+    border: '2px solid red',
+    justifyContent: 'space-between'
+  }
+});
 
 export default App;

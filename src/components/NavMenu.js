@@ -1,19 +1,14 @@
 import React from 'react';
-
-const styles = {
-  display: 'flex',
-  border: '2px solid yellow',
-  justifyContent: 'space-between'
-};
+import { StyleSheet, css } from 'aphrodite';
 
 const NavMenu = () => {
   return (
-    <div style={{...styles, padding: '15px 30px'}}>
+    <div className={css(styles.navMenu)}>
       <div>
         LOGO
       </div>
       <div>
-        <div style={styles}>
+        <div className={css(styles.navLinks)}>
           <div>Home</div>
           <div>Sign In</div>
           <div>Register</div>
@@ -22,5 +17,19 @@ const NavMenu = () => {
     </div>
   );
 };
+
+const styles = StyleSheet.create({
+  navMenu: {
+    display: 'flex',
+    border: '2px solid yellow',
+    justifyContent: 'space-between',
+    padding: '20px 35px'
+  },
+  navLinks: {
+    display: 'flex',
+    border: '2px solid yellow',
+    justifyContent: 'space-between'
+  }
+});
 
 export default NavMenu;
