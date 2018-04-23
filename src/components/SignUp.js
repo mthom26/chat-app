@@ -1,6 +1,6 @@
 import React from 'react';
 import StandardForm from './StandardForm';
-import {auth} from '../firebase/index';
+import { auth, db } from '../firebase/index';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -19,7 +19,18 @@ class SignUp extends React.Component {
   }
 
   onSignUp = (data) => {
-    console.log(data);
+    auth.doCreateUser(data.email, data.password)
+      .then(authUser => {
+        db.doCreateUser(authUser.uid, data.userName, data.email)
+          .then(() => {
+          })
+          .catch(error => {
+            this.setState({error: error})
+          })
+      })
+      .catch(error => {
+        this.setState({error: error})
+      });
   }
 
   render() {

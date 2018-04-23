@@ -4,13 +4,14 @@ import NavMenu from './NavMenu';
 import ChatWindow from './ChatWindow';
 import OnlineUsers from './OnlineUsers';
 import SignUp from './SignUp';
+import SignIn from './SignIn';
 
 class App extends Component {
   render() {
     return (
       <div className={css(styles.app)}>
         <NavMenu />
-        <SignUp />
+        <SignIn />
         {/* <div className={css(styles.main)}>
           <ChatWindow />
           <OnlineUsers />
