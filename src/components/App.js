@@ -3,16 +3,18 @@ import { StyleSheet, css } from 'aphrodite';
 import NavMenu from './NavMenu';
 import ChatWindow from './ChatWindow';
 import OnlineUsers from './OnlineUsers';
+import SignUp from './SignUp';
 
 class App extends Component {
   render() {
     return (
-      <div classname={css(styles.app)}>
+      <div className={css(styles.app)}>
         <NavMenu />
-        <div className={css(styles.main)}>
+        <SignUp />
+        {/* <div className={css(styles.main)}>
           <ChatWindow />
           <OnlineUsers />
-        </div>
+        </div> */}
       </div>
     );
   }
