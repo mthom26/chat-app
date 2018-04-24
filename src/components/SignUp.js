@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import StandardForm from './StandardForm';
 import { auth, db } from '../firebase/index';
 
@@ -7,6 +8,7 @@ class SignUp extends React.Component {
     super(props);
 
     this.state = {
+      redirectTarget: '/home',
       formComponents: {
         userName: true,
         email: true,
@@ -23,6 +25,8 @@ class SignUp extends React.Component {
       .then(authUser => {
         db.doCreateUser(authUser.uid, data.userName, data.email)
           .then(() => {
+            const { redirectTarget } = this.state;
+            this.props.history.push(redirectTarget);
           })
           .catch(error => {
             this.setState({error: error})
@@ -43,4 +47,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);
