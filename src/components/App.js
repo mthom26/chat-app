@@ -6,6 +6,7 @@ import ChatWindow from './ChatWindow';
 import OnlineUsers from './OnlineUsers';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import withAuthentication from '../hocs/withAuthentication';
 
 class App extends Component {
   render() {
@@ -52,4 +53,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+export default withAuthentication(App);
