@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import NavMenu from './NavMenu';
 import ChatWindow from './ChatWindow';
 import OnlineUsers from './OnlineUsers';
@@ -9,14 +10,31 @@ import SignIn from './SignIn';
 class App extends Component {
   render() {
     return (
-      <div className={css(styles.app)}>
-        <NavMenu />
-        <SignIn />
-        {/* <div className={css(styles.main)}>
-          <ChatWindow />
-          <OnlineUsers />
-        </div> */}
-      </div>
+      <Router>
+        <div className={css(styles.app)}>
+          <NavMenu />
+          <Route
+            exact path="/signin"
+            component={() => <SignIn />}
+          />
+          <Route
+            exact path="/signup"
+            component={() => <SignUp />}
+          />
+          <Route
+            exact path="/home"
+            component={() => (
+              <div className={css(styles.main)}>
+                <ChatWindow />
+                <OnlineUsers />
+              </div>)}
+          />
+          <Route
+            exact path="/profile"
+            component={() => <div>Profile Page</div>}
+          />
+        </div>
+      </Router>
     );
   }
 }
