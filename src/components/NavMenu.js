@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { Link } from 'react-router-dom';
 
 const NavMenu = () => {
   return (
@@ -9,9 +10,9 @@ const NavMenu = () => {
       </div>
       <div>
         <div className={css(styles.navLinks)}>
-          <div>Home</div>
-          <div>Sign In</div>
-          <div>Register</div>
+          <Link className={css(styles.navButton)} to="/home">HOME</Link>
+          <Link className={css(styles.navButton)} to="/signin">SIGN IN</Link>
+          <Link className={css(styles.navButton)} to="/signup">SIGN UP</Link>
         </div>
       </div>
     </div>
@@ -29,6 +30,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     border: '2px solid yellow',
     justifyContent: 'space-between'
+  },
+  navButton: {
+    padding: '10px 20px',
+    ':hover': {
+      background: '#898989'
+    }
   }
 });
 
