@@ -22,6 +22,12 @@ const NavMenu = () => {
                     HOME
                   </Link>}
                 {authUser &&
+                  <Link
+                    className={css(styles.navButton)}
+                    to="/profile">
+                    PROFILE
+                  </Link>}
+                {authUser &&
                   <SignOut
                     passedClasses={css(styles.navButton)}>
                     SIGN OUT

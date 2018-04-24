@@ -6,6 +6,7 @@ import ChatWindow from './ChatWindow';
 import OnlineUsers from './OnlineUsers';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import Profile from './Profile';
 import withAuthentication from '../hocs/withAuthentication';
 
 class App extends Component {
@@ -32,7 +33,7 @@ class App extends Component {
           />
           <Route
             exact path="/profile"
-            component={() => <div>Profile Page</div>}
+            component={() => <Profile />}
           />
         </div>
       </Router>
