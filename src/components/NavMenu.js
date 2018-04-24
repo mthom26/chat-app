@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { Link } from 'react-router-dom';
 import { AuthUserContext } from '../contexts/index';
+import SignOut from './SignOut';
 
 const NavMenu = () => {
   return (
@@ -20,6 +21,11 @@ const NavMenu = () => {
                     to="/home">
                     HOME
                   </Link>}
+                {authUser &&
+                  <SignOut
+                    passedClasses={css(styles.navButton)}>
+                    SIGN OUT
+                  </SignOut>}
                 {!authUser &&
                   <Link
                     className={css(styles.navButton)}
@@ -54,6 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   navButton: {
+    cursor: 'pointer',
     padding: '10px 20px',
     ':hover': {
       background: '#898989'
