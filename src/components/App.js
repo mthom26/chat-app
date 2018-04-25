@@ -7,6 +7,7 @@ import OnlineUsers from './OnlineUsers';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import Profile from './Profile';
+import Landing from './Landing';
 import withAuthentication from '../hocs/withAuthentication';
 
 class App extends Component {
@@ -15,6 +16,10 @@ class App extends Component {
       <Router>
         <div className={css(styles.app)}>
           <NavMenu />
+          <Route
+            exact path="/"
+            component={() => <Landing />}
+          />
           <Route
             exact path="/signin"
             component={() => <SignIn />}
