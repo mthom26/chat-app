@@ -10,7 +10,7 @@ const NavMenu = () => {
       {authUser => {
         return (
           <div className={css(styles.navMenu)}>
-            <div>
+            <div className={css(styles.navLogo)}>
               LOGO
             </div>
             <div>
@@ -56,21 +56,32 @@ const NavMenu = () => {
 const styles = StyleSheet.create({
   navMenu: {
     display: 'flex',
-    border: '2px solid yellow',
+    borderBottom: '2px solid #F0C667',
+    background: 'linear-gradient(350deg, rgba(0,0,0,0.3), rgba(255,255,255,0.15))',
     justifyContent: 'space-between',
-    padding: '20px 35px'
+    alignItems: 'stretch',
+    padding: '0 35px'
   },
   navLinks: {
     display: 'flex',
-    border: '2px solid yellow',
     justifyContent: 'space-between'
   },
   navButton: {
     cursor: 'pointer',
-    padding: '10px 20px',
+    fontWeight: 'bold',
+    letterSpacing: '2px',
+    padding: '15px 25px',
     ':hover': {
       background: '#898989'
     }
+  },
+  navLogo: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    letterSpacing: '2px',
+    padding: '0 25px'
   }
 });
 
