@@ -10,3 +10,12 @@ a {
   color: #e8e8e8;
   text-decoration: none;
 }
+
+input {
+  border: 0;
+  color: #e8e8e8;
+}
+
+input:focus {
+  outline: none;
+}

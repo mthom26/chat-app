@@ -63,55 +63,62 @@ class StandardForm extends React.Component {
       error
     } = this.state;
 
-    const { formComponents } = this.props;
+    const {
+      formComponents,
+      formStyling,
+      inputStyling,
+      submitStyling
+    } = this.props;
 
     return (
-      <div>
-        <form>
-          {formComponents.userName &&
-            <input
-              value={userName}
-              name="userName"
-              placeholder="User Name"
-              type="text"
-              onChange={this.onUserNameChange}
-            />}
-
-          {formComponents.email &&
+      <form className={formStyling}>
+        {formComponents.userName &&
           <input
-            value={email}
-            name="email"
-            placeholder="Email Address"
+            value={userName}
+            name="userName"
+            placeholder="User Name"
             type="text"
-            onChange={this.onEmailChange}
+            onChange={this.onUserNameChange}
+            className={inputStyling}
           />}
 
-          {formComponents.password &&
-          <input
-            value={password}
-            name="password"
-            placeholder="Password"
-            type="password"
-            onChange={this.onPasswordChange}
-          />}
+        {formComponents.email &&
+        <input
+          value={email}
+          name="email"
+          placeholder="Email Address"
+          type="text"
+          onChange={this.onEmailChange}
+          className={inputStyling}
+        />}
 
-          {formComponents.passwordConfirm &&
-          <input
-            value={passwordConfirm}
-            name="passwordConfirm"
-            placeholder="Confirm Password"
-            type="password"
-            onChange={this.onPasswordConfirmChange}
-          />}
+        {formComponents.password &&
+        <input
+          value={password}
+          name="password"
+          placeholder="Password"
+          type="password"
+          onChange={this.onPasswordChange}
+          className={inputStyling}
+        />}
 
-          <div
-            onClick={this.onSubmit}
-          >
-            Submit
-          </div>
+        {formComponents.passwordConfirm &&
+        <input
+          value={passwordConfirm}
+          name="passwordConfirm"
+          placeholder="Confirm Password"
+          type="password"
+          onChange={this.onPasswordConfirmChange}
+          className={inputStyling}
+        />}
 
-        </form>
-      </div>
+        <div
+          onClick={this.onSubmit}
+          className={submitStyling}
+        >
+          Submit
+        </div>
+      </form>
     );
   }
 }

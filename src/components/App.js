@@ -53,9 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   main: {
-    display: 'flex',
-    border: '2px solid red',
-    justifyContent: 'space-between'
+    display: 'flex'
   }
 });
 
