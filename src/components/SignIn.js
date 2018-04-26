@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { StyleSheet, css } from 'aphrodite';
 import StandardForm from './StandardForm';
-import {auth} from '../firebase/index';
+import { auth, db } from '../firebase/index';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -23,6 +23,7 @@ class SignIn extends React.Component {
   onSignIn = (data) => {
     auth.doSignIn(data.email, data.password)
       .then(authUser => {
+        //db.doSetPresence(authUser.uid, 'Sign In');
         const { redirectTarget } = this.state;
         this.props.history.push(redirectTarget);
       })
@@ -30,6 +31,17 @@ class SignIn extends React.Component {
         this.setState({error: error})
       });
   }
+/*
+  onSignIn = (data) => {
+    auth.doSignIn(data.email, data.password)
+      .then(authUser => {
+        const { redirectTarget } = this.state;
+        this.props.history.push(redirectTarget);
+      })
+      .catch(error => {
+        this.setState({error: error})
+      });
+  }*/
 
   render() {
     return (

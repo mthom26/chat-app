@@ -1,4 +1,4 @@
-import { auth } from './firebase';
+import { auth, db } from './firebase';
 
 // Register
 export const doCreateUser = (email, password) => {
@@ -12,7 +12,8 @@ export const doSignIn = (email, password) => {
 
 // Sign Out
 export const doSignOut = () => {
-  return auth.signOut();
+  auth.signOut();
+  db.goOffline(); // Also disconnect from database so the user registers as offline on the server when signing out.
 };
 
 // Password Reset

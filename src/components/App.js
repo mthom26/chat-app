@@ -10,7 +10,31 @@ import Profile from './Profile';
 import Landing from './Landing';
 import withAuthentication from '../hocs/withAuthentication';
 
+import { db } from '../firebase/index';
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    // Currently the handleUserPresence state is only reset to true when the page is refreshed, signing out then signing in on the same tab doesn't work
+    this.state = {
+      handleUserPresence: true
+    };
+  }
+
+  componentDidUpdate() {
+    const { authUser } = this.props;
+    const { handleUserPresence } = this.state;
+
+    if(authUser && handleUserPresence) {
+      console.log('call do set presence');
+      db.doSetPresence(authUser.uid, 'App');
+      this.setState({handleUserPresence: false});
+    } else {
+      console.log('do not call set presence');
+    }
+  }
+
   render() {
     return (
       <Router>
