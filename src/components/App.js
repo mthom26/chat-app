@@ -11,6 +11,7 @@ import Landing from './Landing';
 import withAuthentication from '../hocs/withAuthentication';
 
 import { db } from '../firebase/index';
+import { db as database } from '../firebase/firebase';
 
 class App extends Component {
   constructor(props) {
@@ -18,8 +19,16 @@ class App extends Component {
 
     // Currently the handleUserPresence state is only reset to true when the page is refreshed, signing out then signing in on the same tab doesn't work
     this.state = {
-      handleUserPresence: true
+      handleUserPresence: true,
+      onlineUserList: null
     };
+  }
+
+  componentWillMount() {
+    database.ref('usersOnline')
+      .on('value', (snap) => {
+        this.setState({onlineUserList: snap.val()});
+      });
   }
 
   componentDidUpdate() {
