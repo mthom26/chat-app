@@ -24,17 +24,22 @@ class SignUp extends React.Component {
   onSignUp = (data) => {
     auth.doCreateUser(data.email, data.password)
       .then(authUser => {
+        authUser.updateProfile({displayName: data.userName})
+          .then(() => console.log('updated displayName'));
+
         db.doCreateUser(authUser.uid, data.userName, data.email)
           .then(() => {
             const { redirectTarget } = this.state;
             this.props.history.push(redirectTarget);
           })
           .catch(error => {
-            this.setState({error: error})
+            this.setState({error: error});
+            console.log(error);
           })
       })
       .catch(error => {
-        this.setState({error: error})
+        this.setState({error: error});
+        console.log(error);
       });
   }
 

@@ -24,7 +24,8 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    // This doesn't work until the page is refreshed, need to fix
     database.ref('usersOnline')
       .on('value', (snap) => {
         this.setState({onlineUserList: snap.val()});
@@ -37,7 +38,7 @@ class App extends Component {
 
     if(authUser && handleUserPresence) {
       console.log('call do set presence');
-      db.doSetPresence(authUser.uid, 'App');
+      db.doSetPresence(authUser.uid, authUser.displayName);
       this.setState({handleUserPresence: false});
     } else {
       console.log('do not call set presence');
@@ -66,7 +67,7 @@ class App extends Component {
             component={() => (
               <div className={css(styles.main)}>
                 <ChatWindow />
-                <OnlineUsers />
+                <OnlineUsers users={this.state.onlineUserList}/>
               </div>)}
           />
           <Route
