@@ -3,6 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { Link } from 'react-router-dom';
 import { AuthUserContext } from '../contexts/index';
 import SignOut from './SignOut';
+import * as colors from '../constants/colors';
 
 const NavMenu = () => {
   return (
@@ -56,7 +57,7 @@ const NavMenu = () => {
 const styles = StyleSheet.create({
   navMenu: {
     display: 'flex',
-    borderBottom: '2px solid #F0C667',
+    borderBottom: `2px solid ${colors.yellow}`,
     background: 'linear-gradient(350deg, rgba(0,0,0,0.3), rgba(255,255,255,0.15))',
     justifyContent: 'space-between',
     alignItems: 'stretch',
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     letterSpacing: '2px',
     padding: '15px 25px',
     ':hover': {
-      background: '#898989'
+      background: colors.lightGrey
     }
   },
   navLogo: {

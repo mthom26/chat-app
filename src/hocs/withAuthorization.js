@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { firebase } from '../firebase/index';
 import { AuthUserContext } from '../contexts/index';
+import * as routes from '../constants/routes';
 
 const withAuthorization = (authCondition) => (Component) => {
   class WithAuthorization extends React.Component {
@@ -16,7 +17,7 @@ const withAuthorization = (authCondition) => (Component) => {
     componentDidMount() {
       firebase.auth.onAuthStateChanged(authUser => {
         if(!authCondition(authUser)) {
-          this.props.history.push('/signin');
+          this.props.history.push(routes.SIGN_IN);
         }
       });
     }

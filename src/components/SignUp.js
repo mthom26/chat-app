@@ -3,13 +3,15 @@ import { withRouter } from 'react-router-dom';
 import { StyleSheet, css } from 'aphrodite';
 import StandardForm from './StandardForm';
 import { auth, db } from '../firebase/index';
+import * as routes from '../constants/routes';
+import * as colors from '../constants/colors';
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      redirectTarget: '/home',
+      redirectTarget: routes.HOME,
       formComponents: {
         userName: true,
         email: true,
@@ -75,14 +77,14 @@ const styles = StyleSheet.create({
     padding: '10px',
     background: 'rgba(0,0,0,0.5)',
     ':focus': {
-      borderBottom: '2px solid #F0C667'
+      borderBottom: `2px solid ${colors.yellow}`
     }
   },
   submit: {
     cursor: 'pointer',
     fontWeight: 'bold',
     marginTop: '15px',
-    background: '#F0C667',
+    background: colors.yellow,
     padding: '10px 30px'
   }
 });

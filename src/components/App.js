@@ -9,6 +9,7 @@ import SignIn from './SignIn';
 import Profile from './Profile';
 import Landing from './Landing';
 import withAuthentication from '../hocs/withAuthentication';
+import * as routes from '../constants/routes';
 
 import { db } from '../firebase/index';
 import { db as database } from '../firebase/firebase';
@@ -52,19 +53,19 @@ class App extends Component {
         <div className={css(styles.app)}>
           <NavMenu />
           <Route
-            exact path="/"
+            exact path={routes.LANDING}
             component={() => <Landing />}
           />
           <Route
-            exact path="/signin"
+            exact path={routes.SIGN_IN}
             component={() => <SignIn />}
           />
           <Route
-            exact path="/signup"
+            exact path={routes.SIGN_UP}
             component={() => <SignUp />}
           />
           <Route
-            exact path="/home"
+            exact path={routes.HOME}
             component={() => (
               <div className={css(styles.main)}>
                 <ChatWindow />
@@ -72,7 +73,7 @@ class App extends Component {
               </div>)}
           />
           <Route
-            exact path="/profile"
+            exact path={routes.PROFILE}
             component={() => <Profile />}
           />
         </div>
