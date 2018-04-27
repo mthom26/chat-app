@@ -1,10 +1,24 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
-const OnlineUsers = () => {
+const OnlineUsers = (props) => {
+  const { users } = props;
+  let usersArray = [];
+  if(users) {
+    usersArray = Object.keys(users).map(key => {
+      return users[key];
+    });
+  }
+
+
   return (
     <div className={css(styles.onlineUsers)}>
-      Online Users
+      <h3>Online Users</h3>
+      {usersArray.length && usersArray.map(user => {
+        return (
+          <div key={user.id}>{user.name}</div>
+        )
+      })}
     </div>
   );
 };

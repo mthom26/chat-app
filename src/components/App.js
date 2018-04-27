@@ -46,6 +46,7 @@ class App extends Component {
   }
 
   render() {
+    //console.log(typeof(this.state.onlineUserList));
     return (
       <Router>
         <div className={css(styles.app)}>
