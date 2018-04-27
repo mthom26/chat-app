@@ -12,7 +12,6 @@ import withAuthentication from '../hocs/withAuthentication';
 import * as routes from '../constants/routes';
 
 import { db } from '../firebase/index';
-import { db as database } from '../firebase/firebase';
 
 class App extends Component {
   constructor(props) {
@@ -20,17 +19,8 @@ class App extends Component {
 
     // Currently the handleUserPresence state is only reset to true when the page is refreshed, signing out then signing in on the same tab doesn't work
     this.state = {
-      handleUserPresence: true,
-      onlineUserList: null
+      handleUserPresence: true
     };
-  }
-
-  componentDidMount() {
-    // This doesn't work until the page is refreshed, need to fix
-    database.ref('usersOnline')
-      .on('value', (snap) => {
-        this.setState({onlineUserList: snap.val()});
-      });
   }
 
   componentDidUpdate() {
@@ -47,7 +37,6 @@ class App extends Component {
   }
 
   render() {
-    //console.log(typeof(this.state.onlineUserList));
     return (
       <Router>
         <div className={css(styles.app)}>
@@ -69,7 +58,7 @@ class App extends Component {
             component={() => (
               <div className={css(styles.main)}>
                 <ChatWindow />
-                <OnlineUsers users={this.state.onlineUserList}/>
+                <OnlineUsers />
               </div>)}
           />
           <Route

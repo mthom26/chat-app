@@ -1,27 +1,49 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { db } from '../firebase/firebase';
 
-const OnlineUsers = (props) => {
-  const { users } = props;
-  let usersArray = [];
-  if(users) {
-    usersArray = Object.keys(users).map(key => {
-      return users[key];
+class OnlineUsers extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      onlineUserList: null
+    };
+
+    this.db = db.ref('usersOnline');
+  }
+
+  componentDidMount() {
+    this.db.on('value', (snap) => {
+      this.setState({onlineUserList: snap.val()});
     });
   }
 
+  componentWillUnmount() {
+    this.db.off();
+  }
 
-  return (
-    <div className={css(styles.onlineUsers)}>
-      <h3>Online Users</h3>
-      {usersArray.length && usersArray.map(user => {
-        return (
-          <div key={user.id}>{user.name}</div>
-        )
-      })}
-    </div>
-  );
-};
+  render() {
+    const users = this.state.onlineUserList;
+    let usersArray = [];
+    if(users) {
+      usersArray = Object.keys(users).map(key => {
+        return users[key];
+      });
+    }
+
+    return (
+      <div className={css(styles.onlineUsers)}>
+        <h3>Online Users</h3>
+        {usersArray.length && usersArray.map(user => {
+          return (
+            <div key={user.id}>{user.name}</div>
+          )
+        })}
+      </div>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   onlineUsers: {
