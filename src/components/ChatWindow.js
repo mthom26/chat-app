@@ -1,12 +1,35 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { db } from '../firebase/firebase';
 
-const ChatWindow = () => {
-  return (
-    <div className={css(styles.chatWindow)}>
-      Chat Window
-    </div>
-  );
+class ChatWindow extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messageList: null
+    };
+
+    this.db = db.ref('rooms/main');
+  }
+
+  componentDidMount() {
+    this.db.on('value', (snap) => {
+      this.setState({messageList: snap.val()});
+    });
+  }
+
+  componentWillUnmount() {
+    this.db.off();
+  }
+
+  render() {
+    return (
+      <div className={css(styles.chatWindow)}>
+        Chat Window
+      </div>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
