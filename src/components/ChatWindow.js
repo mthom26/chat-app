@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase/firebase';
+import MessageForm from './MessageForm';
 
 class ChatWindow extends React.Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class ChatWindow extends React.Component {
     return (
       <div className={css(styles.chatWindow)}>
         Chat Window
+        <MessageForm />
       </div>
     );
   }
@@ -34,6 +36,8 @@ class ChatWindow extends React.Component {
 
 const styles = StyleSheet.create({
   chatWindow: {
+    display: 'flex',
+    flexDirection: 'column',
     flexBasis: '75%',
     border: '1px solid yellow',
     margin: '25px',
