@@ -11,11 +11,17 @@ class MessageForm extends React.Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(event) {
     event.preventDefault();
     this.setState({message: event.target.value});
+  }
+
+  onSubmit(message) {
+    this.props.onMessageSubmit(this.state.message);
+    this.setState({message: ''});
   }
 
   render() {
@@ -31,7 +37,12 @@ class MessageForm extends React.Component {
           onChange={this.onChange}
           value={message}
         />
-        <div className={css(styles.submit)}>SEND</div>
+        <div
+          className={css(styles.submit)}
+          onClick={this.onSubmit}
+        >
+          SEND
+        </div>
       </div>
     );
   }

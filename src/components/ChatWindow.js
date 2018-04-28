@@ -12,6 +12,11 @@ class ChatWindow extends React.Component {
     };
 
     this.db = db.ref('rooms/main');
+    this.onMessageSubmit = this.onMessageSubmit.bind(this);
+  }
+
+  onMessageSubmit(message) {
+    // Write message to database
   }
 
   componentDidMount() {
@@ -28,7 +33,7 @@ class ChatWindow extends React.Component {
     return (
       <div className={css(styles.chatWindow)}>
         Chat Window
-        <MessageForm />
+        <MessageForm onMessageSubmit={this.onMessageSubmit}/>
       </div>
     );
   }
