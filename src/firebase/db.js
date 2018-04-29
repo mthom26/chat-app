@@ -20,6 +20,7 @@ export const doCreateMessage = (room, name, message) => {
   const messageRef = ref.push();
   return (
     messageRef.set({
+      id: messageRef.key,
       username: name,
       message: message
     })

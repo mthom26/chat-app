@@ -44,7 +44,7 @@ class ChatWindow extends React.Component {
       <div className={css(styles.chatWindow)}>
         Chat Window
         {messageArray.length && messageArray.map(message => (
-          <div>
+          <div key={message.id}>
             <span>{message.username}</span>
             <span>{message.message}</span>
           </div>
