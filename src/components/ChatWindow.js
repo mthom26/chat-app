@@ -32,9 +32,23 @@ class ChatWindow extends React.Component {
   }
 
   render() {
+    const { messageList } = this.state;
+    let messageArray = [];
+    if(messageList) {
+      messageArray = Object.keys(messageList).map(key => {
+        return messageList[key];
+      });
+    }
+
     return (
       <div className={css(styles.chatWindow)}>
         Chat Window
+        {messageArray.length && messageArray.map(message => (
+          <div>
+            <span>{message.username}</span>
+            <span>{message.message}</span>
+          </div>
+        ))}
         <MessageForm onMessageSubmit={this.onMessageSubmit}/>
       </div>
     );
