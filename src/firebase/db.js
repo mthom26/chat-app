@@ -14,6 +14,18 @@ export const doCreateUser = (id, name, email) => {
   );
 };
 
+export const doCreateMessage = (room, name, message) => {
+
+  const ref = db.ref(`rooms/${room}`);
+  const messageRef = ref.push();
+  return (
+    messageRef.set({
+      username: name,
+      message: message
+    })
+  );
+};
+
 export const doSetPresence = (id, name) => {
 
   var myConnectionsRef = db.ref(`usersOnline`).push(id);

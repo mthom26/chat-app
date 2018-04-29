@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase/firebase';
+import { db as database } from '../firebase/index';
 import MessageForm from './MessageForm';
 
 class ChatWindow extends React.Component {
@@ -16,7 +17,8 @@ class ChatWindow extends React.Component {
   }
 
   onMessageSubmit(message) {
-    // Write message to database
+    const name = this.props.authUser.displayName;
+    database.doCreateMessage('main', name, message);
   }
 
   componentDidMount() {

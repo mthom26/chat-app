@@ -10,6 +10,7 @@ import Profile from './Profile';
 import Landing from './Landing';
 import withAuthentication from '../hocs/withAuthentication';
 import * as routes from '../constants/routes';
+import { AuthUserContext } from '../contexts/index';
 
 import { db } from '../firebase/index';
 
@@ -37,6 +38,8 @@ class App extends Component {
   }
 
   render() {
+    const { authUser } = this.props;
+
     return (
       <Router>
         <div className={css(styles.app)}>
@@ -57,7 +60,7 @@ class App extends Component {
             exact path={routes.HOME}
             component={() => (
               <div className={css(styles.main)}>
-                <ChatWindow />
+                <ChatWindow authUser={authUser}/>
                 <OnlineUsers />
               </div>)}
           />
