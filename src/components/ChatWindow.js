@@ -9,7 +9,8 @@ class ChatWindow extends React.Component {
     super(props);
 
     this.state = {
-      messageList: null
+      previousMessages: [],
+      messageList: []
     };
 
     this.db = db.ref('rooms/main');
@@ -22,9 +23,32 @@ class ChatWindow extends React.Component {
   }
 
   componentDidMount() {
-    this.db.on('value', (snap) => {
-      this.setState({messageList: snap.val()});
+    // First we want to obtain the 10 most recent messages from the db,
+    // then attach a 'child_added' listener
+
+    this.db.limitToLast(10).once('value')
+      .then(snap => {
+        const messages = snap.val();
+        let messageArray = [];
+        messageArray = Object.keys(messages).map(key => {
+          return messages[key];
+        });
+
+        this.setState(() => ({previousMessages: messageArray}));
+      })
+      .catch(error => console.log(error));
+
+
+
+    this.db.limitToLast(1).on('child_added', (snap) => {
+
+      const prevMessages = this.state.messageList;
+      prevMessages.push(snap.val());
+      this.setState(() => ({messageList: prevMessages}));
+      console.log(prevMessages);
+
     });
+
   }
 
   componentWillUnmount() {
@@ -32,18 +56,17 @@ class ChatWindow extends React.Component {
   }
 
   render() {
-    const { messageList } = this.state;
-    let messageArray = [];
-    if(messageList) {
-      messageArray = Object.keys(messageList).map(key => {
-        return messageList[key];
-      });
-    }
+    const { messageList, previousMessages } = this.state;
+
+    // Slice the first message off the messageList as it was already
+    // fetched in the previousMessages array
+    const finalArray = previousMessages.concat(messageList.slice(1));
+    //console.log(finalArray);
 
     return (
       <div className={css(styles.chatWindow)}>
         Chat Window
-        {messageArray.length && messageArray.map(message => (
+        {finalArray.length && finalArray.map(message => (
           <div key={message.id}>
             <span>{message.username}</span>
             <span>{message.message}</span>
