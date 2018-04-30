@@ -1,61 +1,48 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
 import { StyleSheet, css } from 'aphrodite';
 import StandardForm from './StandardForm';
-import { auth, db } from '../firebase/index';
-import * as routes from '../constants/routes';
 import * as colors from '../constants/colors';
+import { auth } from '../firebase/index';
 
-class SignIn extends React.Component {
+class PasswordForget extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      redirectTarget: routes.HOME,
       formComponents: {
-        email: true,
-        password: true
+        email: true
       },
-      error: null
+      error: null,
+      message: null
     };
 
-    this.onSignIn = this.onSignIn.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSignIn = (data) => {
-    auth.doSignIn(data.email, data.password)
-      .then(authUser => {
-        //db.doSetPresence(authUser.uid, 'Sign In');
-        const { redirectTarget } = this.state;
-        this.props.history.push(redirectTarget);
+  onSubmit(data) {
+    auth.doPasswordReset(data.email)
+      .then(() => {
+        this.setState({message: 'Password Reset email sent!'})
       })
       .catch(error => {
-        this.setState({error: error})
+        this.setState({error: error});
       });
   }
-/*
-  onSignIn = (data) => {
-    auth.doSignIn(data.email, data.password)
-      .then(authUser => {
-        const { redirectTarget } = this.state;
-        this.props.history.push(redirectTarget);
-      })
-      .catch(error => {
-        this.setState({error: error})
-      });
-  }*/
 
   render() {
+    const { error, message } = this.state;
     return (
       <div className={css(styles.outerContainer)}>
+        <p>Enter your email below and we will send instructions to change your password.</p>
         <StandardForm
           formComponents={this.state.formComponents}
-          onSubmitAction={this.onSignIn}
+          onSubmitAction={this.onSubmit}
           formStyling={css(styles.form)}
           inputStyling={css(styles.input)}
           submitStyling={css(styles.submit)}
         />
-        <p>Forgotten password? <Link className={css(styles.link)} to={routes.PASSWORD_FORGET}>Click here</Link></p>
+        {message && <div>{message}</div>}
+        {error && <div>{error.message}</div>}
       </div>
     );
   }
@@ -95,4 +82,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withRouter(SignIn);
+export default PasswordForget;

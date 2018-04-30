@@ -25,7 +25,6 @@ class ChatWindow extends React.Component {
   componentDidMount() {
     // First we want to obtain the 10 most recent messages from the db,
     // then attach a 'child_added' listener
-
     this.db.limitToLast(10).once('value')
       .then(snap => {
         const messages = snap.val();
@@ -33,22 +32,16 @@ class ChatWindow extends React.Component {
         messageArray = Object.keys(messages).map(key => {
           return messages[key];
         });
-
         this.setState(() => ({previousMessages: messageArray}));
       })
       .catch(error => console.log(error));
 
-
-
     this.db.limitToLast(1).on('child_added', (snap) => {
-
       const prevMessages = this.state.messageList;
       prevMessages.push(snap.val());
       this.setState(() => ({messageList: prevMessages}));
       console.log(prevMessages);
-
     });
-
   }
 
   componentWillUnmount() {
