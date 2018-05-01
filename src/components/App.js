@@ -9,6 +9,7 @@ import SignIn from './SignIn';
 import Profile from './Profile';
 import Landing from './Landing';
 import PasswordForget from './PasswordForget';
+import PasswordUpdate from './PasswordUpdate';
 import withAuthentication from '../hocs/withAuthentication';
 import * as routes from '../constants/routes';
 import { AuthUserContext } from '../contexts/index';
@@ -72,6 +73,10 @@ class App extends Component {
           <Route
             exact path={routes.PASSWORD_FORGET}
             component={() => <PasswordForget />}
+          />
+          <Route
+            exact path={routes.PASSWORD_CHANGE}
+            component={() => <PasswordUpdate />}
           />
         </div>
       </Router>
