@@ -3,6 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { db } from '../firebase/firebase';
 import { db as database } from '../firebase/index';
 import MessageForm from './MessageForm';
+import { convertTimestamp } from '../helpers/index';
 
 class ChatWindow extends React.Component {
   constructor(props) {
@@ -40,7 +41,6 @@ class ChatWindow extends React.Component {
       const prevMessages = this.state.messageList;
       prevMessages.push(snap.val());
       this.setState(() => ({messageList: prevMessages}));
-      console.log(prevMessages);
     });
   }
 
@@ -54,15 +54,15 @@ class ChatWindow extends React.Component {
     // Slice the first message off the messageList as it was already
     // fetched in the previousMessages array
     const finalArray = previousMessages.concat(messageList.slice(1));
-    //console.log(finalArray);
-
+    
     return (
       <div className={css(styles.chatWindow)}>
         Chat Window
         {finalArray.length && finalArray.map(message => (
-          <div key={message.id}>
+          <div className={css(styles.message)} key={message.id}>
             <span>{message.username}</span>
             <span>{message.message}</span>
+            <span>{convertTimestamp(message.timestamp).toString()}</span>
           </div>
         ))}
         <MessageForm onMessageSubmit={this.onMessageSubmit}/>
@@ -72,6 +72,11 @@ class ChatWindow extends React.Component {
 };
 
 const styles = StyleSheet.create({
+  message: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '0.5rem 0'
+  },
   chatWindow: {
     display: 'flex',
     flexDirection: 'column',

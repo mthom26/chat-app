@@ -22,7 +22,8 @@ export const doCreateMessage = (room, name, message) => {
     messageRef.set({
       id: messageRef.key,
       username: name,
-      message: message
+      message: message,
+      timestamp: firebase.database.ServerValue.TIMESTAMP
     })
   );
 };
