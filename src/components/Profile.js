@@ -13,8 +13,20 @@ const ProfilePage = (props) => {
         return (
           <div className={css(styles.outerContainer)}>
             <div className={css(styles.container)}>
-              <h2>Profile page for: {authUser.email}</h2>
-              <Link className={css(styles.link)} to={routes.PASSWORD_CHANGE}>Change password</Link>
+              <div className={css(styles.profile)}>
+                <div className={css(styles.profileImage)}>
+                  Profile Image
+                </div>
+                <div>
+                  <h3>{authUser.displayName}</h3>
+                  <h3>{authUser.email}</h3>
+                  <Link className={css(styles.link)} to={routes.PASSWORD_CHANGE}>Change password</Link>
+                </div>
+              </div>
+              <div>
+                Messages Section
+              </div>
+
             </div>
           </div>
         );
@@ -32,6 +44,14 @@ const authCondition = (authUser) => {
 };
 
 const styles = StyleSheet.create({
+  profile: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  profileImage: {
+    border: '1px solid cyan',
+    margin: '1rem'
+  },
   link: {
     color: colors.yellow
   },
@@ -42,7 +62,9 @@ const styles = StyleSheet.create({
   container: {
     maxWidth: '1080px',
     display: 'flex',
-    justifyContent: 'center'
+    flexDirection: 'column',
+    justifyContent: 'center',
+    border: '1px solid red'
   }
 });
 
