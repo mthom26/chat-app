@@ -22,8 +22,19 @@ class App extends Component {
 
     // Currently the handleUserPresence state is only reset to true when the page is refreshed, signing out then signing in on the same tab doesn't work
     this.state = {
-      handleUserPresence: true
+      handleUserPresence: true,
+      currentUser: null
     };
+
+    this.updateUser = this.updateUser.bind(this);
+  }
+
+  updateUser(userid) {
+    // Call db to get user info
+    db.doGetUser(userid)
+      .then(user => {
+        this.setState({currentUser: user});
+      });
   }
 
   componentDidUpdate() {
@@ -31,11 +42,12 @@ class App extends Component {
     const { handleUserPresence } = this.state;
 
     if(authUser && handleUserPresence) {
-      console.log('call do set presence');
+      //console.log('call do set presence');
       db.doSetPresence(authUser.uid, authUser.displayName);
+      this.updateUser(authUser.uid);
       this.setState({handleUserPresence: false});
     } else {
-      console.log('do not call set presence');
+      //console.log('do not call set presence');
     }
   }
 
@@ -52,11 +64,11 @@ class App extends Component {
           />
           <Route
             exact path={routes.SIGN_IN}
-            component={() => <SignIn />}
+            component={() => <SignIn updateUser={this.updateUser}/>}
           />
           <Route
             exact path={routes.SIGN_UP}
-            component={() => <SignUp />}
+            component={() => <SignUp updateUser={this.updateUser}/>}
           />
           <Route
             exact path={routes.HOME}

@@ -25,25 +25,15 @@ class SignIn extends React.Component {
   onSignIn = (data) => {
     auth.doSignIn(data.email, data.password)
       .then(authUser => {
-        //db.doSetPresence(authUser.uid, 'Sign In');
         const { redirectTarget } = this.state;
+        //const { updateUser } = this.props;
+        //updateUser(authUser.uid);
         this.props.history.push(redirectTarget);
       })
       .catch(error => {
         this.setState({error: error})
       });
   }
-/*
-  onSignIn = (data) => {
-    auth.doSignIn(data.email, data.password)
-      .then(authUser => {
-        const { redirectTarget } = this.state;
-        this.props.history.push(redirectTarget);
-      })
-      .catch(error => {
-        this.setState({error: error})
-      });
-  }*/
 
   render() {
     return (

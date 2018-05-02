@@ -15,6 +15,16 @@ export const doCreateUser = (id, name, email) => {
   );
 };
 
+export const doGetUser = (userid) => {
+  return (
+    db.ref(`users/${userid}`).once('value')
+      .then((snap) => {
+        const user = snap.val();
+        return user;
+      })
+  );
+};
+
 export const doCreateMessage = (room, name, message) => {
 
   const ref = db.ref(`rooms/${room}`);
