@@ -9,7 +9,8 @@ export const doCreateUser = (id, name, email) => {
   return (
     db.ref(`users/${id}`).set({
       username: name,
-      email: email
+      email: email,
+      profileurl: `https://robohash.org/${name}`
     })
   );
 };
