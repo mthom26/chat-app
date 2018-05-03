@@ -7,15 +7,23 @@ import * as routes from '../constants/routes';
 import * as colors from '../constants/colors';
 
 const ProfilePage = (props) => {
+  const { currentUser } = props;
+  let profileUrl;
+  if(currentUser) {
+    //console.log(currentUser.profileurl);
+    profileUrl = currentUser.profileurl;
+  }
+  //console.log(currentUser.profileurl);
+  //profileUrl = currentUser.profileurl;
   return (
     <AuthUserContext.Consumer>
-      {authUser => {
+      {(authUser) => {
         return (
           <div className={css(styles.outerContainer)}>
             <div className={css(styles.container)}>
               <div className={css(styles.profile)}>
                 <div className={css(styles.profileImage)}>
-                  Profile Image
+                  <img className={css(styles.image)} src={profileUrl} />
                 </div>
                 <div>
                   <h3>{authUser.displayName}</h3>
@@ -26,7 +34,6 @@ const ProfilePage = (props) => {
               <div>
                 Messages Section
               </div>
-
             </div>
           </div>
         );
@@ -44,6 +51,9 @@ const authCondition = (authUser) => {
 };
 
 const styles = StyleSheet.create({
+  image: {
+    maxWidth: '150px'
+  },
   profile: {
     display: 'flex',
     justifyContent: 'center'

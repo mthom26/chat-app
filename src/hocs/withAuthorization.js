@@ -23,11 +23,14 @@ const withAuthorization = (authCondition) => (Component) => {
     }
 
     render() {
+      const { currentUser } = this.props;
       return (
         <AuthUserContext.Consumer>
           {authUser => {
             if(authUser) {
-              return <Component />
+              // Don't forget to pass along props,
+              // Refactor this to be more general later...
+              return <Component currentUser={currentUser}/>
             }
             return null;
           }}

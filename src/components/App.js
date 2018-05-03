@@ -53,6 +53,7 @@ class App extends Component {
 
   render() {
     const { authUser } = this.props;
+    const { currentUser } = this.state;
 
     return (
       <Router>
@@ -80,7 +81,7 @@ class App extends Component {
           />
           <Route
             exact path={routes.PROFILE}
-            component={() => <Profile />}
+            component={() => <Profile currentUser ={currentUser}/>}
           />
           <Route
             exact path={routes.PASSWORD_FORGET}
