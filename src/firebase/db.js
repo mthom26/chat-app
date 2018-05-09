@@ -25,7 +25,7 @@ export const doGetUser = (userid) => {
   );
 };
 
-export const doCreateMessage = (room, name, message) => {
+export const doCreateMessage = (room, name, message, profileimage) => {
 
   const ref = db.ref(`rooms/${room}`);
   const messageRef = ref.push();
@@ -34,6 +34,7 @@ export const doCreateMessage = (room, name, message) => {
       id: messageRef.key,
       username: name,
       message: message,
+      profileimage: profileimage,
       timestamp: firebase.database.ServerValue.TIMESTAMP
     })
   );

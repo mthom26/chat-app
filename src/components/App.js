@@ -75,7 +75,7 @@ class App extends Component {
             exact path={routes.HOME}
             component={() => (
               <div className={css(styles.main)}>
-                <ChatWindow authUser={authUser}/>
+                <ChatWindow authUser={authUser} currentUser={currentUser}/>
                 <OnlineUsers />
               </div>)}
           />

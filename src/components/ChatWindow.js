@@ -20,7 +20,8 @@ class ChatWindow extends React.Component {
 
   onMessageSubmit(message) {
     const name = this.props.authUser.displayName;
-    database.doCreateMessage('main', name, message);
+    const profileimage = this.props.currentUser.profileurl;
+    database.doCreateMessage('main', name, message, profileimage);
   }
 
   componentDidMount() {
@@ -60,8 +61,8 @@ class ChatWindow extends React.Component {
         Chat Window
         {finalArray.length && finalArray.map(message => (
           <div className={css(styles.message)} key={message.id}>
-            <div className={css(styles.image)}>
-
+            <div className={css(styles.imagediv)}>
+              <img alt="" className={css(styles.image)} src={message.profileimage}/>
             </div>
 
             <div className={css(styles.messageContent)}>
@@ -89,11 +90,14 @@ const styles = StyleSheet.create({
     fontSize: '0.8rem',
     opacity: '0.7'
   },
-  image: {
+  imagediv: {
     border: '1px solid orange',
     width: '60px',
     height: '60px',
     marginRight: '0.8rem'
+  },
+  image: {
+    maxWidth: '60px'
   },
   messageMeta: {
     marginBottom: '0.4rem'
