@@ -54,15 +54,25 @@ class ChatWindow extends React.Component {
     // Slice the first message off the messageList as it was already
     // fetched in the previousMessages array
     const finalArray = previousMessages.concat(messageList.slice(1));
-    
+
     return (
       <div className={css(styles.chatWindow)}>
         Chat Window
         {finalArray.length && finalArray.map(message => (
           <div className={css(styles.message)} key={message.id}>
-            <span>{message.username}</span>
-            <span>{message.message}</span>
-            <span>{convertTimestamp(message.timestamp).toString()}</span>
+            <div className={css(styles.image)}>
+
+            </div>
+
+            <div className={css(styles.messageContent)}>
+              <div className={css(styles.messageMeta)}>
+                <span className={css(styles.username)}>{message.username}</span>
+                <span className={css(styles.date)}> - {convertTimestamp(message.timestamp).toString()}</span>
+              </div>
+              <div>
+                <span>{message.message}</span>
+              </div>
+            </div>
           </div>
         ))}
         <MessageForm onMessageSubmit={this.onMessageSubmit}/>
@@ -72,9 +82,29 @@ class ChatWindow extends React.Component {
 };
 
 const styles = StyleSheet.create({
-  message: {
+  username: {
+    fontSize: '1.2rem'
+  },
+  date: {
+    fontSize: '0.8rem',
+    opacity: '0.7'
+  },
+  image: {
+    border: '1px solid orange',
+    width: '60px',
+    height: '60px',
+    marginRight: '0.8rem'
+  },
+  messageMeta: {
+    marginBottom: '0.4rem'
+  },
+  messageContent: {
     display: 'flex',
     flexDirection: 'column',
+    border: '1px solid cyan'
+  },
+  message: {
+    display: 'flex',
     margin: '0.5rem 0'
   },
   chatWindow: {
